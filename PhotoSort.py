@@ -67,9 +67,9 @@ def get_graphic_files(src, list):
         if os.path.isdir(current_path):
             get_graphic_files(current_path, list)
 
-    list.extend(
-        glob.glob(f"{src}/*.@(jpg|jpeg|gif|png|raw)", flags=glob.EXTGLOB, root_dir=src)
-    )
+    files = glob.glob("*.@(jpg|jpeg|gif|png|raw)", flags=glob.EXTGLOB, root_dir=src)
+    for file in files:
+        list.append(f"{src}/{file}")
 
     return list
 
@@ -87,10 +87,10 @@ def get_new_name(file, dest):
         print("__________________")
         print("SourceFile", metadata[0]["SourceFile"])
         print("EXIF:DateTimeOriginal", metadata[0]["EXIF:DateTimeOriginal"])
-        print("EXIF:CreateDate", metadata[0]["EXIF:CreateDate"])
-        print("File:FileCreateDate", metadata[0]["File:FileCreateDate"])
-        print("File:FileModifyDate", metadata[0]["File:FileModifyDate"])
-        print("__________________")
+        #print("EXIF:CreateDate", metadata[0]["EXIF:CreateDate"])
+        #print("File:FileCreateDate", metadata[0]["File:FileCreateDate"])
+        #print("File:FileModifyDate", metadata[0]["File:FileModifyDate"])
+        
 
     date, time = metadata[0]["EXIF:DateTimeOriginal"].split(sep=" ")
     print(f"date {date}")
@@ -105,6 +105,7 @@ def get_new_name(file, dest):
 
     dest_file = dest / YYYY / YYYYMM / YYYYMMDD / dest_file_name
     print(dest_file)
+    print("__________________")
 
     return dest_file
 
